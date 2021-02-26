@@ -492,11 +492,21 @@ function checkKey(e) {
                     
                     e.preventDefault();
                     break;
+
+                case 37:
+                    prevItem();
+                    e.preventDefault();
+                    break;
         
                 case 38: // up
                     moveFocus(-1);
                     break;
-        
+
+                case 39:
+                    nextItem();
+                    e.preventDefault();
+                    break;
+
                 case 40: // down
                     moveFocus(1);
                     break;
