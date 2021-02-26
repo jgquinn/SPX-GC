@@ -287,6 +287,12 @@
                 document.getElementById('layer' + data.webplayout).contentWindow.next();
                 break;
 
+            case 'prevTemplate':
+                // set callback function to the iframe and then load src to it.
+                if (!allowLayerControl(data.webplayout)) return; // check layer param
+                document.getElementById('layer' + data.webplayout).contentWindow.prev();
+                break;
+
             case 'updateTemplate':
                 setTimeout(function(){ updateLayer(data.webplayout,data.fields); }, 10);
                 break;
