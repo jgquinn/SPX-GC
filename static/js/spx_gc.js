@@ -481,20 +481,32 @@ function checkKey(e) {
                     if (e.shiftKey) {
                         // Shift + Space = NEXT
                         nextItem();
+                    } else if (e.ctrlKey) {
+                        // Shift + CRTL = PREV
+                        prevItem();
                     }
-                    else
-                    {
+                    else {
                         // Space = PLAY
                         playItem();
                     }
                     
                     e.preventDefault();
                     break;
+
+                case 37:
+                    prevItem();
+                    e.preventDefault();
+                    break;
         
                 case 38: // up
                     moveFocus(-1);
                     break;
-        
+
+                case 39:
+                    nextItem();
+                    e.preventDefault();
+                    break;
+
                 case 40: // down
                     moveFocus(1);
                     break;
