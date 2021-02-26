@@ -71,3 +71,5 @@ desktop.ini
 *.zip
 RUN_DEV.lnk
 RUN_DEV.BAT
+.idea
+*-config.json
