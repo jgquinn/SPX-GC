@@ -481,9 +481,11 @@ function checkKey(e) {
                     if (e.shiftKey) {
                         // Shift + Space = NEXT
                         nextItem();
+                    } else if (e.ctrlKey) {
+                        // Shift + CRTL = PREV
+                        prevItem();
                     }
-                    else
-                    {
+                    else {
                         // Space = PLAY
                         playItem();
                     }
