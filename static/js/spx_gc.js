@@ -973,8 +973,41 @@ function nextItem(itemrow='') {
         document.getElementById('MasterCONTINUE').classList.add('disabled');
         setMasterButtonStates(itemrow);
     }
-
+    document.getElementById('MasterPREVIOUS').classList.remove('disabled');
   } // nextItem
+
+
+
+function prevItem(itemrow='') {
+    // Previous command.
+    if (!itemrow)
+    {
+        // itemrow not given, get focused row
+        itemrow = getFocusedRow();
+    }
+    data = {};
+    data.datafile      = document.getElementById('datafile').value;
+    data.epoch         = itemrow.getAttribute('data-spx-epoch');
+    data.command       = 'prev';
+    working('Sending ' + data.command + ' request.');
+    ajaxpost('/gc/playout',data);
+
+    // increase steps left
+    var stepsleft= parseInt(itemrow.getAttribute('data-spx-stepsleft'))+1;
+    itemrow.setAttribute('data-spx-stepsleft',stepsleft);
+    console.log('Steps left: ' + stepsleft);
+    var stepsVal = itemrow.querySelector('input[name="RundownItem[steps]"]').value || 0;
+    var steps = parseInt(stepsVal);
+    if (stepsleft-steps < 1) {
+        // This should go somewhere else - because of DRY.
+        // This duplicates some code from nextItem
+        // itemrow.setAttribute('data-spx-onair', false);
+        document.getElementById('MasterPREVIOUS').classList.add('disabled');
+        setMasterButtonStates(itemrow);
+    }
+    document.getElementById('MasterCONTINUE').classList.remove('disabled');
+
+} // prevItem
 
 
 
@@ -1481,12 +1514,14 @@ function setMasterButtonStates(itemrow, debugMessage='') {
     let TOGGLEBUTTON = document.getElementById('MasterTOGGLE');
     let UPDATEBUTTON = document.getElementById('MasterUPDATE');
     let CONTINBUTTON = document.getElementById('MasterCONTINUE');
+    let PREVBUTTON = document.getElementById('MasterPREVIOUS');
 
     if (document.querySelectorAll('.itemrow').length<1){
         // no items on page, so disable buttons and bale out
         TOGGLEBUTTON.classList.add('disabled'); 
         UPDATEBUTTON.classList.add('disabled'); 
-        CONTINBUTTON.classList.add('disabled'); 
+        CONTINBUTTON.classList.add('disabled');
+        PREVBUTTON.classList.add('disabled');
         return
     }
 
@@ -1530,6 +1565,13 @@ function setMasterButtonStates(itemrow, debugMessage='') {
     if (steps > 1 && onair )
         {
             setTimeout(function () { CONTINBUTTON.classList.remove('disabled'); }, 3);
+        }
+
+    // PREVIOUS
+    PREVBUTTON.classList.add('disabled');
+    if (steps > 1 && stepsleft < steps && onair )
+        {
+            setTimeout(function () { PREVBUTTON.classList.remove('disabled'); }, 3);
         }
 
     // PLAY - STOP TOGGLE

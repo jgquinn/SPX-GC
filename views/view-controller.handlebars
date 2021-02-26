@@ -463,7 +463,7 @@
                 <button
                   id="MasterTOGGLE"
                   class="btn bg_green ripple disabled"
-                  style="width:45%;"
+                  style="width:40%;"
                   data-spx-graphic="name_left"
                   data-spx-playtext="{{lang 'button.playmaster'}}"
                   data-spx-stoptext="{{lang 'button.stopmaster'}}"
@@ -474,12 +474,20 @@
                 <button
                   id="MasterCONTINUE"
                   class="btn bg_green ripple disabled"
-                  style="width:45%;"
+                  style="width:35%;"
                   onClick="nextItem();"
                    onmouseover="tip('{{lang 'hover.mastercontinue'}}');"
                   >{{lang 'button.continue'}}</button>
 
-                <!-- *** hidden **** it was confusing there -->
+                <button
+                  id="MasterPREVIOUS"
+                  class="btn bg_green ripple disabled"
+                  style="width:20%;"
+                  onClick="prevItem();"
+                   onmouseover="tip('{{lang 'hover.masterprevious'}}');"
+                  >{{lang 'button.previous'}}</button>
+
+                  <!-- *** hidden **** it was confusing there -->
                 <button
                   id="MasterUPDATE"
                   class="btn bg_blue ripple disabled"

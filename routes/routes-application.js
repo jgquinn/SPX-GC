@@ -899,9 +899,26 @@ router.post('/gc/playout', spxAuth.CheckLogin, async (req, res) => {
           logger.verbose('No Webplayout playout');
         } // else web 
         break;
-    
 
-      // == STOP ======================================================
+
+        // == PREV / aka PREVIOUS  ========================================
+      case 'prev':
+
+        // Send PlayoutWEB.functionCalls() if any ---------------------
+        if (dataOut.webplayout!='-'){
+          logger.verbose('Webplayout PREV: ' + dataOut.webplayout);
+          dataOut.spxcmd = 'prevTemplate';
+          PlayoutWEB.webPlayoutController(dataOut);
+          // io.emit('SPXMessage2Client', dataOut);
+        } // if web
+        else
+        {
+          logger.verbose('No Webplayout playout');
+        } // else web
+        break;
+
+
+        // == STOP ======================================================
       case 'stop': 
         logger.verbose('Stopping [' + dataOut.relpath + ']');
         if (!preventSave) {RundownData.templates[templateIndex].onair='false';}
