@@ -723,6 +723,10 @@ const { data } = require('./utils/logger.js')
 const { Z_VERSION_ERROR } = require('zlib')
 app.use('/CCG', ROUTEccg);
 
+const proxy = require('./utils/proxy.js');
+proxy.configureProxies( app );
+
+
 process.on('uncaughtException', function(err) {
   if(err.errno === 'EADDRINUSE')
     {
