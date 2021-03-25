@@ -66,7 +66,7 @@ const ipad = ip.address();
 const open = require('open');
 var pjson = require('./package.json');
 var packageversion = pjson.version;
-const vers = process.env.npm_package_version || packageversion || 'X.X.X';
+const vers = ( process.env.npm_package_version || packageversion || 'X.X.X' ) + '_2BC';
 global.vers = vers;
 global.excel = {'readtime':0000, 'filename':'', 'data':''}; // used as Excel cache
 
