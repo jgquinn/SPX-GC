@@ -56,6 +56,15 @@ async function captureSnapshot() {
 
 module.exports = {
     configureSnapshots: function( expapp ) {
+        expapp.get( '/export-snapshot/ready', async ( req, res ) => {
+            snapshotEnsureReady().then(() => {
+                res.set('Content-type', 'text/plain');
+                res.status(200).send('OK');
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        } );
+
         expapp.get( '/export-snapshot', async ( req, res ) => {
             captureSnapshot().then((buf) => {
                 res.set('Content-type', 'image/png');
