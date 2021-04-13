@@ -660,6 +660,9 @@ app.use('/CCG', ROUTEccg);
 const proxy = require('./utils/proxy.js');
 proxy.configureProxies( app );
 
+const snapshots = require( './utils/snapshots.js' );
+snapshots.configureSnapshots( app );
+
 
 process.on('uncaughtException', function(err) {
   if(err.errno === 'EADDRINUSE')
