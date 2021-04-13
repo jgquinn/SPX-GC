@@ -52,6 +52,16 @@ function PluginInstance() {
     }
 
     this.startDoc = () => {
+        disableButton( this.btnStart, true );
+        fetch( '/export-snapshot/ready?dt=' + Date.now() ).then( () => {
+            disableButton( this.btnCancel, false );
+            disableButton( this.btnAdd, false );
+            disableButton( this.btnSave, true );
+        } ).catch( ( err ) => {
+            disableButton( this.btnStart, false );
+            console.log( err );
+        } );
+
         this.doc = new jspdf.jsPDF( {
             orientation: 'landscape',
             unit: 'pt',
@@ -59,11 +69,6 @@ function PluginInstance() {
             compress: true
         } );
         this.docPages = 0;
-
-        disableButton( this.btnStart, true );
-        disableButton( this.btnCancel, false );
-        disableButton( this.btnAdd, false );
-        disableButton( this.btnSave, true );
     }
 
     this.cancelDoc = () => {
