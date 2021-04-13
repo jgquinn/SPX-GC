@@ -657,6 +657,9 @@ const { resolve } = require('path')
 const { rejects } = require('assert')
 app.use('/CCG', ROUTEccg);
 
+const snapshots = require( './utils/snapshots.js' );
+snapshots.configureSnapshots( app );
+
 process.on('uncaughtException', function(err) {
   if(err.errno === 'EADDRINUSE')
     {
