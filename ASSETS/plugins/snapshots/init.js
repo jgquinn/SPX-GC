@@ -36,6 +36,14 @@ function PluginInstance() {
         this.btnAdd.querySelector( '#btn' ).addEventListener( 'click', plug.addSnap );
         disableButton( this.btnAdd, true );
 
+        this.btnSaveSnap = UI.button( {
+            description: 'Save snapshot frame',
+            caption: 'Save Frame',
+            color: 'blue'
+        } );
+        this.btnSaveSnap.querySelector( '#btn' ).addEventListener( 'click', plug.saveSnap );
+        disableButton( this.btnSaveSnap, true );
+
         this.btnSave = UI.button( {
             description: 'Save snapshots',
             caption: 'Save Snapshot',
@@ -48,6 +56,7 @@ function PluginInstance() {
         app.appendChild( this.btnStart );
         app.appendChild( this.btnCancel );
         app.appendChild( this.btnAdd );
+        app.appendChild( this.btnSaveSnap );
         app.appendChild( this.btnSave );
     }
 
@@ -56,6 +65,7 @@ function PluginInstance() {
         fetch( '/export-snapshot/ready?dt=' + Date.now() ).then( () => {
             disableButton( this.btnCancel, false );
             disableButton( this.btnAdd, false );
+            disableButton( this.btnSaveSnap, false );
             disableButton( this.btnSave, true );
         } ).catch( ( err ) => {
             disableButton( this.btnStart, false );
@@ -101,6 +111,15 @@ function PluginInstance() {
         disableButton( this.btnAdd, true );
         disableButton( this.btnSave, true );
         img.src = '/export-snapshot?dt=' + Date.now();
+    }
+
+    this.saveSnap = () => {
+        console.log( 'PLUGIN snapshots requesting still frame' );
+        let dt = Date.now();
+        let a = document.createElement( 'a' );
+        a.href = '/export-snapshot?dt=' + dt;
+        a.download = 'gc-' + dt + '.png';
+        a.click();
     }
 
     this.saveDoc = () => {
