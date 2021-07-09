@@ -534,8 +534,8 @@ router.post('/show/:foldername', spxAuth.CheckLogin, async (req, res) => {
 
 
 router.delete('/show/:folder/:file', spxAuth.CheckLogin, async (req, res) => {
-  res.send("would delete file " + req.params.folder + "/data/" + req.params.file + ".json");
-  let datatemp = path.join(config.general.dataroot, req.params.folder, "data", req.params.file) + '.json';
+  res.send("would delete file " + req.params.folder + "/data/" + encodeURIComponent(req.params.file) + ".json");
+  let datatemp = path.join(config.general.dataroot, req.params.folder, "data", encodeURIComponent(req.params.file)) + '.json';
   let datafile = path.normalize(datatemp);
   fs.unlink(datafile, function (err) {
      if (err) {
@@ -592,12 +592,12 @@ router.delete('/shows/:foldername', spxAuth.CheckLogin, async (req, res) => {
 
 router.get('/gc/:foldername/:filename', cors(), spxAuth.CheckLogin, async (req, res) => { 
   // G R A P H I C   C O N T R O L L E R   M A I N   V I E W
-  let datafile = path.join(config.general.dataroot, req.params.foldername,'data', req.params.filename) + '.json';
+  let datafile = path.join(config.general.dataroot, req.params.foldername,'data', encodeURIComponent(req.params.filename)) + '.json';
   const fileDataAsJSON = await GetJsonData(datafile);
   let showprofile = path.join(config.general.dataroot, req.params.foldername, 'profile.json');
   const profileDataJSONobj = await GetJsonData(showprofile);
   let profileData = JSON.stringify(profileDataJSONobj);
-  res.render('view-controller', { layout: false, globalExtras:config.globalExtras, filedata: fileDataAsJSON, folder: req.params.foldername, datafile: datafile, filebasename: req.params.filename, profiledata: profileData, profiledataObj: profileDataJSONobj, user: req.session.user });
+  res.render('view-controller', { layout: false, globalExtras:config.globalExtras, filedata: fileDataAsJSON, folder: req.params.foldername, datafile: datafile, filebasename: encodeURIComponent(req.params.filename), profiledata: profileData, profiledataObj: profileDataJSONobj, user: req.session.user });
 });
 
 

@@ -462,6 +462,10 @@ app.engine('handlebars', exphbs({
         return spx.prettifyName(filepath);
     },
 
+    titleFromFilename(filename) {
+      return decodeURIComponent(filename);
+    },
+
 
     // Make long strings nicer to look at
     shortifyUIstrings(str) {

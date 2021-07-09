@@ -91,7 +91,7 @@
                 onmouseover="tip('{{lang 'hover.epslist'}}');"
                 ondblclick="cas();" autofocus>
                 {{#each files}}
-                <option>{{this}}</option>
+                <option value="{{this}}">{{titleFromFilename this}}</option>
                 {{/each}}
               </select><BR>
               </td>

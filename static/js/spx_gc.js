@@ -267,7 +267,7 @@ function add() {
     // returns ..... posts a name of a file to server which redirects
     var listname = prompt("Creating a new content list. Name?", "");
     if (listname != null && listname != "") {
-        post('', { filebasename: listname }, 'post');
+        post('', { filebasename: encodeURIComponent( listname ) }, 'post');
     }
 } //add
 
@@ -640,7 +640,7 @@ function del() {
     if (!filename) {return}
     let foldname = document.getElementById("hidden_folder").value;
 
-    if (confirm('SURE?! Delete "' + filename + '" and all it\'s data?')) {
+    if (confirm('SURE?! Delete "' + decodeURIComponent(filename) + '" and all it\'s data?')) {
         fetch('/show/' + foldname + "/" + filename, { method: 'DELETE' });
         setTimeout(function(){ document.location = '/show/' + foldname; }, 500);
     }
@@ -1123,11 +1123,11 @@ function renameRundown() {
     var filename = document.getElementById('lists').value;
     if (!filename) {return}
     var foldname = document.getElementById("hidden_folder").value;
-    var newname = prompt("Rename the rundown?", filename);
+    var newname = prompt("Rename the rundown?", decodeURIComponent(filename));
     if (newname != null && newname != "") {
         data={};
         data.orgname = filename + '.json';
-        data.newname = newname;
+        data.newname = encodeURIComponent(newname);
         data.foldnam = foldname;
         ajaxpost('/gc/renameRundown',data);
         setTimeout(function(){ document.location = '/show/' + foldname; }, 500);
